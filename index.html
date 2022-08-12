@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Hitung Profit FB-Ads</title>
+  <link href="app.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script>
+    function total() {
+      var modal = parseInt(document.getElementById("txtModal").value);
+      var ppn = Math.round(modal * 0.11);
+      var totalModal = modal + ppn;
+
+      var pendapatan = parseInt(document.getElementById("txtIncome").value);
+
+      var currency = document.getElementById("adsenseCurrency");
+      var adsenseCur = currency.options[currency.selectedIndex].value;
+      if (adsenseCur == 'USD') {
+        pendapatanAdsense = 14000 * pendapatan;
+      } else {
+        pendapatanAdsense = pendapatan;
+      }
+
+      var untung = pendapatanAdsense - totalModal;
+      var cuan = document.getElementById('cuan');
+      cuan.innerHTML = "Profit : " + untung.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumSignificantDigits: 2 });
+
+      var persen = (untung / totalModal) * (100);
+      var profit = document.getElementById('persen');
+      profit.innerHTML = "(" + persen.toFixed(2) + "%)";
+
+      if (persen <= 0) {
+        quote = "Yah Belum Balik Modal Kaka... -_-";
+      } else if (persen < 100 && persen > 0) {
+        quote = "Yuk Bisa Yookkk Dikit Lagii... ^_^";
+      } else if (persen > 100 && persen < 300) {
+        quote = "300% sih gampang yahh...$_$";
+      } else if (persen > 300 && persen < 1000) {
+        quote = "Siap-siap Pamer Buat Jadi Mastah...*_*";
+      } else if (persen > 1000) {
+        quote = "Akhirnyaa bisa Rebahan...~_~";
+      }
+
+      var quoteX = document.getElementById('quote');
+      quoteX.innerHTML = quote;
+    }
+  </script>
+
+  <script src="number.js"></script>
+</head>
+
+<body class="antialiased bg-gray-100">
+  <div class="hero min-h-screen bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse max-w-lg">
+      <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold">Hitung Profit FB-Ads</h1>
+        <p class="py-6">Web Sederhana Buat Hitung Profit Sementara FB-Ads. Tinggal Masukkan Budget FB-Ads dan
+          Penghasilan Adsensemu Pada Form Di bawah :</p>
+      </div>
+      <div class="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+        <div class="card-body">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-bold text-lg">Budget FB-Ads :</span>
+            </label>
+            <input class="number-separator1 input input-bordered font-semibold text-lg" type="text"
+              placeholder="masukkan budgetmu di sini"><input type="number" id="txtModal" name="txtModal" hidden>
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-bold text-lg">Penghasilan Adsense :</span>
+            </label>
+            <div class="flex justify-between gap-2">
+              <select id="adsenseCurrency"
+                class="flex bg-green-100 rounded-md border border-gray-600 p-2 m-1 font-semibold">
+                <option value="IDR" class="font-semibold">IDR</option>
+                <option value="USD" class="font-semibold">USD</option>
+              </select>
+              <input class="number-separator2 input input-bordered flex w-full font-semibold text-lg" type="text"
+                onkeyup="total()" placeholder="pilih currency dulu yah"><input type="number" id="txtIncome"
+                name="txtIncome" hidden>
+            </div>
+          </div>
+          <div class="bg-green-50 m-2 p-4 border border-emerald-500 text-center rounded-md shadow mt-10">
+            <h2>
+              <span id="cuan" class="font-bold text-2xl text-red-800"></span>
+              <span id="persen" class="font-semibold text-2xl text-purple-800"></span>
+            </h2>
+            <h3 id="quote" class="mx-auto p-2 m-2 text-center text-blue-900 font-semibold text-lg italic"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    easyNumberSeparator({
+      selector: '.number-separator1',
+      separator: '.',
+      resultInput: '#txtModal',
+    });
+    easyNumberSeparator({
+      selector: '.number-separator2',
+      separator: '.',
+      resultInput: '#txtIncome',
+    });
+  </script>
+</body>
+
+</html>
